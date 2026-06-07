@@ -1,5 +1,4 @@
 """
-ThreatScope IOC Extractor
 -------------------------
 Extracts Indicators of Compromise from raw text using regex patterns.
 Supports: IPv4, IPv6, domains, URLs, MD5/SHA1/SHA256 hashes, CVE IDs, emails.
