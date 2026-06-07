@@ -1,11 +1,4 @@
 """
-ThreatScope Data Ingestion
---------------------------
-Downloads and processes real threat intelligence data:
-  1. MITRE ATT&CK techniques (from GitHub STIX data)
-  2. CISA Known Exploited Vulnerabilities (KEV) catalog
-  3. Custom threat report files (TXT/PDF in data/threat_reports/)
-
 Each document is tagged with metadata for filtered retrieval:
   - source_type: "mitre_attack" | "cisa_kev" | "threat_report"
   - technique_id, tactic, platform (for MITRE)
