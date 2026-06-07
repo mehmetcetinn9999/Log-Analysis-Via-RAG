@@ -1,10 +1,3 @@
-"""
-ThreatScope Configuration
--------------------------
-Supports multiple LLM backends: Groq (free tier), OpenAI, Ollama (local).
-Environment variables control which backend is active.
-"""
-
 import os
 from dotenv import load_dotenv
 
