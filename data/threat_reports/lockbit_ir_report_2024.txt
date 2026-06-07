@@ -1,0 +1,62 @@
+INCIDENT RESPONSE REPORT: LockBit 3.0 Ransomware Deployment
+Incident ID: IR-2024-2247
+Classification: TLP:WHITE
+Date: 2024-12-03
+Analyst: ThreatScope Sample Data (Synthetic)
+
+INCIDENT TIMELINE
+
+2024-12-01 02:14 UTC - Initial access detected. VPN credential compromise
+via credential stuffing attack against Fortinet SSL-VPN (CVE-2023-27997).
+Source IP: 91.215.85.17 (hosting provider, Russia).
+
+2024-12-01 02:31 UTC - Lateral movement observed. Attacker used RDP
+(T1021.001) to move from VPN endpoint (10.1.5.22) to domain controller
+(10.1.1.10). Credential: compromised service account svc_backup.
+
+2024-12-01 02:45 UTC - Reconnaissance. Attacker ran net group "Domain Admins"
+/domain and nltest /dclist commands (T1087.002 - Domain Account Discovery).
+ADRecon.ps1 script executed from C:\Temp\.
+
+2024-12-01 03:12 UTC - Credential theft. Mimikatz (T1003.001 - LSASS Memory)
+executed. Hash: 9f2c4b8e7a1d3f5e6c0b2a4d8e7f1c3a dumped DA credentials.
+
+2024-12-01 03:30 UTC - Defense evasion. Windows Defender disabled via
+Set-MpPreference -DisableRealtimeMonitoring $true (T1562.001).
+EDR agent service stopped via sc stop CrowdStrike.
+
+2024-12-01 04:00 UTC - Staging. LockBit 3.0 binary staged on file share
+\\DC01\SYSVOL\scripts\update.exe. SHA256:
+b4c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7
+
+2024-12-01 04:15 UTC - Volume Shadow Copy deletion.
+vssadmin delete shadows /all /quiet (T1490 - Inhibit System Recovery)
+
+2024-12-01 04:20 UTC - Ransomware deployment via Group Policy Object.
+Scheduled task created across 147 endpoints. Encryption began.
+
+2024-12-01 04:35 UTC - SOC alert triggered by CrowdStrike detection on
+endpoint WS-ACCT-04. Incident escalated to IR team.
+
+2024-12-01 05:00 UTC - Network isolation initiated. Affected VLAN segments
+quarantined. VPN access revoked for all accounts.
+
+AFFECTED SYSTEMS: 147 Windows endpoints, 3 file servers, 1 domain controller
+DATA IMPACT: ~2.3TB encrypted, backup server also compromised
+
+INDICATORS OF COMPROMISE
+- 91.215.85.17 (initial access IP)
+- 185.173.35.200 (exfiltration endpoint)
+- lockbit3-ransom[.]onion (ransom payment site)
+- b4c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7 (SHA256 ransomware binary)
+- 9f2c4b8e7a1d3f5e6c0b2a4d8e7f1c3a (MD5 Mimikatz)
+
+ROOT CAUSE: Compromised VPN credentials (no MFA enforced on SSL-VPN).
+CVE-2023-27997 (FortiOS heap overflow) allowed authentication bypass.
+
+LESSONS LEARNED:
+1. MFA must be enforced on ALL remote access points
+2. Service accounts should not have Domain Admin privileges
+3. EDR tampering alerts must be treated as P1
+4. Offline/immutable backups are essential
+5. Network segmentation would have limited lateral movement

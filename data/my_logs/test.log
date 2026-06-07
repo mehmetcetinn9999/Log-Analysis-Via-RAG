@@ -1,0 +1,15 @@
+2025-05-22 08:23:45 auth.log sshd[1234]: Failed password for root from 192.168.1.100 port 54322
+2025-05-22 08:24:01 auth.log sshd[1234]: Failed password for admin from 192.168.1.100 port 54323
+2025-05-22 08:25:30 app.log ERROR: SQL injection attempt detected in parameter 'id' from IP 10.0.0.5
+2025-05-22 08:30:12 firewall.log BLOCKED: TCP from 203.0.113.45:8080 to 10.0.0.2:22
+2025-05-22 08:35:22 auth.log sudo: user3 failed to run /etc/shadow as root
+2025-05-22 08:40:05 app.log WARNING: Multiple failed API requests from IP 192.168.1.200
+2025-05-22 08:45:30 auth.log sshd: Accepted password for john from 10.10.10.10 port 55678
+2025-05-22 08:50:15 firewall.log BLOCKED: Suspicious packet from 45.33.22.11 to port 4444
+2025-05-22 08:55:00 app.log ERROR: Potential CVE-2024-1234 exploitation attempt from 8.8.8.8
+2025-05-22 09:00:00 auth.log sshd: Failed password for root from 192.168.1.100 port 55123
+2025-05-22 09:05:00 app.log INFO: User admin logged in from 192.168.1.50
+2025-05-22 09:10:00 firewall.log BLOCKED: Port scan detected from 45.33.22.11
+2025-05-22 09:15:00 app.log ERROR: Database connection timeout from 10.0.0.5
+2025-05-22 09:20:00 auth.log sshd: Invalid user test from 185.130.5.253
+2025-05-22 09:25:00 app.log WARNING: Rate limit exceeded for API key from 192.168.1.200
