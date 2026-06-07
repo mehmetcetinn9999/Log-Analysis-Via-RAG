@@ -350,7 +350,7 @@ class ThreatRAGEngine:
                 ioc_lines.append(f"  {ioc_type}: {', '.join(values[:10])}")
             ioc_section = f"\n\nIOCs detected in the query:\n" + "\n".join(ioc_lines)
 
-        return f"""You are a cybersecurity threat intelligence analyst. Analyze the user's query
+        return f"""You are a cybersecurity threat intelligence analyst. Analyze the user's query and
 using ONLY the retrieved intelligence context below. Be specific, cite technique IDs
 and CVE numbers when relevant. If the context doesn't contain enough information
 to answer, say so explicitly.
