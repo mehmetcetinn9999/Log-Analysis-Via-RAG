@@ -1,12 +1,3 @@
-"""
-ThreatScope Streamlit Application
-----------------------------------
-Multi-tab interface for cybersecurity threat intelligence:
-  - Query: Ask questions about ATT&CK techniques, CVEs, threat actors
-  - Analyze: Upload/paste threat reports for analysis + IOC extraction
-  - Dashboard: View index stats and query logs (observability)
-"""
-
 import os
 import json
 import streamlit as st
