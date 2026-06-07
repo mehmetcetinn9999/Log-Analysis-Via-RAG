@@ -1,6 +1,4 @@
 """
-ThreatScope RAG Engine
-----------------------
 Core retrieval-augmented generation engine for cybersecurity threat intelligence.
 
 Features:
