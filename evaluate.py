@@ -1,5 +1,5 @@
 """
-ThreatScope Evaluation Pipeline
+
 --------------------------------
 Measures retrieval quality and answer accuracy using a curated Q&A test set.
 
@@ -8,9 +8,6 @@ Metrics:
   - Answer Relevance: Does the answer address the question?
   - Source Coverage: Did we retrieve from the right data source?
   - Latency: How fast is the retrieval?
-
-Usage:
-    python evaluate.py
 """
 
 import json
