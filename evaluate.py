@@ -1,15 +1,3 @@
-"""
-
---------------------------------
-Measures retrieval quality and answer accuracy using a curated Q&A test set.
-
-Metrics:
-  - Retrieval Precision: Are the retrieved docs relevant to the query?
-  - Answer Relevance: Does the answer address the question?
-  - Source Coverage: Did we retrieve from the right data source?
-  - Latency: How fast is the retrieval?
-"""
-
 import json
 import os
 import time
@@ -17,10 +5,6 @@ from datetime import datetime
 
 from rag_engine import ThreatRAGEngine
 
-
-# ==============================================================================
-# Test Cases: Curated question-answer pairs with expected attributes
-# ==============================================================================
 
 TEST_CASES = [
     {
