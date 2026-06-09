@@ -1,20 +1,5 @@
-"""
--------------------------
-Extracts Indicators of Compromise from raw text using regex patterns.
-Supports: IPv4, IPv6, domains, URLs, MD5/SHA1/SHA256 hashes, CVE IDs, emails.
-
-Usage:
-    from ioc_extractor import extract_iocs
-    results = extract_iocs("Found malware calling back to 192.168.1.100 on CVE-2024-3400")
-"""
-
 import re
 from collections import defaultdict
-
-
-# ==============================================================================
-# Regex Patterns
-# ==============================================================================
 
 PATTERNS = {
     "ipv4": re.compile(
@@ -48,11 +33,6 @@ PATTERNS = {
 PRIVATE_IP_RANGES = re.compile(
     r"^(?:10\.|172\.(?:1[6-9]|2\d|3[01])\.|192\.168\.|127\.0\.0\.1|0\.0\.0\.0)"
 )
-
-
-# ==============================================================================
-# Extraction Functions
-# ==============================================================================
 
 def extract_iocs(text, include_private_ips=False):
     """
