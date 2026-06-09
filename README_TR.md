@@ -100,7 +100,7 @@ Bu projede üretken yapay zeka araçları aşağıdaki amaçlarla kullanılmış
 * Hata ayıklama
 * Literatür araştırması
 
-Sistem tasarımı, entegrasyon, geliştirme ve değerlendirme çalışmaları proje ekibi tarafından gerçekleştirilmiştir.
+Sistem tasarımı, entegrasyon, geliştirme ve değerlendirme çalışmaları için kullanılmıştır.
 
 ---
 
