@@ -8,18 +8,15 @@ from rag_engine import ThreatRAGEngine
 from ioc_extractor import extract_iocs, format_iocs_for_display, ioc_summary
 
 
-# ==============================================================================
-# Page Config
-# ==============================================================================
+
 st.set_page_config(
     page_title="ThreatScope",
     page_icon="🔍",
     layout="wide",
 )
 
-# ==============================================================================
 # Cached RAG Engine
-# ==============================================================================
+
 @st.cache_resource
 def get_engine():
     engine = ThreatRAGEngine()
@@ -27,9 +24,6 @@ def get_engine():
     return engine
 
 
-# ==============================================================================
-# Sidebar
-# ==============================================================================
 st.sidebar.title("ThreatScope")
 st.sidebar.caption("AI-Powered Threat Intelligence RAG")
 
@@ -53,18 +47,14 @@ FILTER_MAP = {
     "Threat Reports": {"source_type": "threat_report"},
 }
 
-# ==============================================================================
-# Main Tabs
-# ==============================================================================
+
 tab_query, tab_analyze, tab_dashboard = st.tabs(
     ["Query Intelligence", "Analyze Report", "Dashboard"]
 )
 
 engine = get_engine()
 
-# ==============================================================================
-# Tab 1: Query Intelligence
-# ==============================================================================
+
 with tab_query:
     st.header("Query Threat Intelligence")
     st.caption(
@@ -137,9 +127,6 @@ with tab_query:
         )
 
 
-# ==============================================================================
-# Tab 2: Analyze Report
-# ==============================================================================
 with tab_analyze:
     st.header("Analyze Threat Report")
     st.caption("Paste or upload a threat report for IOC extraction and AI analysis.")
@@ -220,9 +207,6 @@ with tab_analyze:
                             st.markdown(f"- {' | '.join(parts)}")
 
 
-# ==============================================================================
-# Tab 3: Dashboard (Observability)
-# ==============================================================================
 with tab_dashboard:
     st.header("ThreatScope Dashboard")
 
