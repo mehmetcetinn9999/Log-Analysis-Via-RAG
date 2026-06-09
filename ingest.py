@@ -1,11 +1,3 @@
-"""
-Each document is tagged with metadata for filtered retrieval:
-  - source_type: "mitre_attack" | "cisa_kev" | "threat_report"
-  - technique_id, tactic, platform (for MITRE)
-  - cve_id, vendor, severity (for CISA KEV)
-  - filename (for custom reports)
-"""
-
 import os
 import json
 import requests
@@ -17,10 +9,6 @@ from langchain_community.document_loaders import TextLoader, PyPDFLoader
 
 import config
 
-
-# ==============================================================================
-# MITRE ATT&CK Ingestion
-# ==============================================================================
 
 MITRE_ATTACK_URL = (
     "https://raw.githubusercontent.com/mitre/cti/master/"
@@ -105,11 +93,6 @@ def parse_mitre_attack(filepath):
     print(f"[+] Parsed {technique_count} MITRE ATT&CK techniques.")
     return documents
 
-
-# ==============================================================================
-# CISA KEV Ingestion
-# ==============================================================================
-
 CISA_KEV_URL = "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json"
 
 
@@ -177,11 +160,6 @@ def parse_cisa_kev(filepath):
     print(f"[+] Parsed {len(documents)} CISA KEV entries.")
     return documents
 
-
-# ==============================================================================
-# Custom Threat Report Ingestion
-# ==============================================================================
-
 def load_threat_reports():
     """Load TXT and PDF files from data/threat_reports/ directory."""
     print("[+] Loading custom threat reports...")
@@ -214,11 +192,6 @@ def load_threat_reports():
 
     print(f"[+] Loaded {len(documents)} documents from threat reports.")
     return documents
-
-
-# ==============================================================================
-# Full Ingestion Pipeline
-# ==============================================================================
 
 def ingest_all():
     """
