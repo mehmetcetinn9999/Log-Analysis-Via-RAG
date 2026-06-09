@@ -136,7 +136,6 @@ project/
 1. Lewis et al. (2020) – Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks
 2. MITRE ATT&CK Framework
 3. CISA Known Exploited Vulnerabilities Catalog
-4. Shajarian et al. (2024) – RAG-Enhanced LLMs for Log Analysis, Troubleshooting and Documentation
 
 ---
 
