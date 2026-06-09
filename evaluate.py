@@ -8,65 +8,62 @@ from rag_engine import ThreatRAGEngine
 
 TEST_CASES = [
     {
-        "query": "What is MITRE ATT&CK technique T1059?",
+        "query": "How do attackers use PowerShell for execution and which MITRE technique covers it?",
         "expected_source_type": "mitre_attack",
-        "expected_keywords": ["command", "scripting", "interpreter"],
+        "expected_keywords": ["powershell", "execution", "command"],
         "expected_technique_id": "T1059",
     },
     {
-        "query": "What is credential dumping and what MITRE techniques cover it?",
+        "query": "Which ATT&CK technique describes dumping credentials from LSASS memory?",
         "expected_source_type": "mitre_attack",
-        "expected_keywords": ["credential", "LSASS", "dump"],
+        "expected_keywords": ["credentials", "lsass", "memory"],
         "expected_technique_id": "T1003",
     },
     {
-        "query": "What is T1566 phishing?",
+        "query": "What techniques are commonly used for ransomware initial access?",
         "expected_source_type": "mitre_attack",
-        "expected_keywords": ["phishing", "spearphishing", "attachment"],
-        "expected_technique_id": "T1566",
+        "expected_keywords": ["initial access", "phishing", "ransomware"],
     },
     {
-        "query": "What MITRE techniques relate to lateral movement?",
+        "query": "Explain remote service abuse for lateral movement.",
         "expected_source_type": "mitre_attack",
-        "expected_keywords": ["lateral", "movement", "remote"],
+        "expected_keywords": ["remote", "service", "lateral"],
     },
     {
-        "query": "What CVEs have been exploited by ransomware?",
+        "query": "What known exploited vulnerabilities are currently associated with Ivanti products?",
         "expected_source_type": "cisa_kev",
-        "expected_keywords": ["ransomware", "CVE"],
+        "expected_keywords": ["Ivanti", "vulnerability"],
     },
     {
-        "query": "What vulnerabilities affect Microsoft products in the CISA KEV catalog?",
+        "query": "What vulnerabilities in the KEV catalog affect VPN appliances?",
         "expected_source_type": "cisa_kev",
-        "expected_keywords": ["Microsoft", "vulnerability"],
+        "expected_keywords": ["vpn", "vulnerability"],
     },
     {
-        "query": "What is privilege escalation and how is it performed?",
+        "query": "Describe common persistence mechanisms used by malware.",
         "expected_source_type": "mitre_attack",
-        "expected_keywords": ["privilege", "escalation"],
+        "expected_keywords": ["persistence", "startup", "registry"],
     },
     {
-        "query": "Explain persistence techniques in MITRE ATT&CK",
+        "query": "How do adversaries establish command and control over HTTP or HTTPS?",
         "expected_source_type": "mitre_attack",
-        "expected_keywords": ["persistence", "registry", "startup"],
-    },
-    {
-        "query": "What is T1071 Application Layer Protocol?",
-        "expected_source_type": "mitre_attack",
-        "expected_keywords": ["application", "protocol", "C2"],
+        "expected_keywords": ["command", "control", "http"],
         "expected_technique_id": "T1071",
     },
     {
-        "query": "What are the most common initial access techniques?",
+        "query": "Which MITRE ATT&CK techniques are related to privilege escalation on Windows systems?",
         "expected_source_type": "mitre_attack",
-        "expected_keywords": ["initial", "access", "phishing"],
+        "expected_keywords": ["privilege", "windows", "escalation"],
+    },
+    {
+        "query": "What techniques are commonly observed during data exfiltration?",
+        "expected_source_type": "mitre_attack",
+        "expected_keywords": ["exfiltration", "data", "transfer"],
     },
 ]
 
 
-# ==============================================================================
-# Evaluation Functions
-# ==============================================================================
+
 
 def evaluate_retrieval_precision(result, test_case):
     """
@@ -186,10 +183,6 @@ def run_evaluation(engine):
     print(f"  Avg Retrieval Prec:   {summary['avg_retrieval_precision']:.1%}")
     print(f"  Avg Answer Relevance: {summary['avg_answer_relevance']:.1%}")
     print(f"  Avg Technique Match:  {summary['avg_technique_match']:.1%}")
-    print(f"  Avg Latency:          {summary['avg_latency_sec']:.2f}s")
-    print(f"  Total Time:           {summary['total_time_sec']:.1f}s")
-    print(f"  Model:                {summary['model']}")
-    print(f"{'='*70}\n")
 
     # Save results
     output_path = "eval/eval_results.json"
