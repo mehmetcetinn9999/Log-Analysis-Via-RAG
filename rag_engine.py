@@ -1,17 +1,3 @@
-"""
-Core retrieval-augmented generation engine for cybersecurity threat intelligence.
-
-Features:
-  - Hybrid retrieval: BM25 (keyword) + ChromaDB (vector similarity)
-  - Metadata-filtered search (by source_type, vendor, tactic, etc.)
-  - Multi-provider LLM support (Groq, OpenAI, Ollama)
-  - Query logging for observability
-  - Structured JSON output with MITRE mapping
-
-Architecture:
-  User Query -> IOC Extraction -> Hybrid Retrieval -> Prompt Construction -> LLM -> Response
-"""
-
 import os
 import re
 import json
@@ -47,10 +33,6 @@ class ThreatRAGEngine:
         self.bm25_docs = []  # parallel list of Documents for BM25
         self.llm = None
         self._init_llm()
-
-    # ==========================================================================
-    # LLM Initialization
-    # ==========================================================================
 
     def _init_llm(self):
         """Initialize LLM based on configured provider."""
@@ -88,10 +70,6 @@ class ThreatRAGEngine:
             print(f"[!] No valid LLM configured. Provider='{provider}'")
             print("    Set LLM_PROVIDER and the corresponding API key in .env")
             self.llm = None
-
-    # ==========================================================================
-    # Index Building
-    # ==========================================================================
 
     def build_index(self, force_rebuild=False):
         """
@@ -158,11 +136,7 @@ class ThreatRAGEngine:
             self._build_bm25(docs)
         except Exception as e:
             print(f"[!] Could not rebuild BM25 from Chroma: {e}")
-
-    # ==========================================================================
-    # Retrieval
-    # ==========================================================================
-
+          
     def _vector_search(self, query, k=None, filters=None):
         """Dense vector similarity search via ChromaDB."""
         k = k or config.RETRIEVAL_K
@@ -225,9 +199,7 @@ class ThreatRAGEngine:
         vector_results = self._vector_search(query, k=k * 2, filters=filters)
         bm25_results = self._bm25_search(query, k=k * 2)
 
-        # Reciprocal Rank Fusion (RRF)
-        # Combines rankings from both retrieval methods using position-based scoring.
-        # Higher-ranked docs in either method get more weight in the final ranking.
+
         rrf_constant = 60  # standard RRF constant from the original RRF paper
         scored_docs = {}
         for rank, (doc, _) in enumerate(vector_results):
@@ -248,27 +220,8 @@ class ThreatRAGEngine:
 
         return [(item["doc"], item["score"]) for item in ranked[:k]]
 
-    # ==========================================================================
-    # Query Pipeline
-    # ==========================================================================
-
     def query(self, user_query, filters=None):
-        """
-        Full RAG query pipeline:
-          1. Extract IOCs from query
-          2. Hybrid retrieval with optional metadata filters
-          3. Construct prompt with retrieved context
-          4. Generate response via LLM
-          5. Log query for observability
 
-        Args:
-            user_query: Natural language question or raw threat data.
-            filters: Optional dict of metadata filters.
-                     e.g., {"source_type": "mitre_attack"} or {"vendor": "Microsoft"}
-
-        Returns:
-            Dict with keys: answer, sources, iocs, retrieval_time, model
-        """
         if self.llm is None:
             return {
                 "answer": "Error: No LLM configured. Set LLM_PROVIDER and API key in .env file.",
@@ -379,10 +332,6 @@ to answer, say so explicitly.
             return f"ollama/{config.OLLAMA_MODEL}"
         return "unknown"
 
-    # ==========================================================================
-    # Query Logging (Observability)
-    # ==========================================================================
-
     def _log_query(self, query, result, filters):
         """Append query details to JSONL log file for observability."""
         log_entry = {
@@ -415,10 +364,6 @@ to answer, say so explicitly.
         except Exception:
             pass
         return logs[-n:]
-
-    # ==========================================================================
-    # Index Statistics
-    # ==========================================================================
 
     def get_index_stats(self):
         """Return statistics about the indexed data."""
